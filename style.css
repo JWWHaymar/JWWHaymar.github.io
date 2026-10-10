@@ -1,0 +1,307 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Jeffrey Marciniak-Haynosch — CV
+   No framework, no build step, no dependency. One stylesheet, hand-written,
+   so the page keeps working untouched for years and loads in one request.
+   ───────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --ink:        #1a1d21;
+  --ink-soft:   #4a5158;
+  --ink-faint:  #868e96;
+  --rule:       #e3e6ea;
+  --bg:         #ffffff;
+  --bg-head:    #11161c;
+  --accent:     #1f6f5c;       /* a muted lab green, not a startup blue */
+  --accent-lit: #4fb49a;
+  --measure:    47rem;         /* ~85 characters: the readable line length */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink:       #e6e9ec;
+    --ink-soft:  #aab2ba;
+    --ink-faint: #7d858d;
+    --rule:      #2a3038;
+    --bg:        #14181d;
+    --bg-head:   #0d1115;
+    --accent:    #4fb49a;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.62 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap { max-width: var(--measure); margin: 0 auto; padding: 0 1.4rem; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+
+/* Keyboard users land here first. Invisible until focused. */
+.skip {
+  position: absolute; left: -9999px;
+  background: var(--accent); color: #fff; padding: .6rem 1rem; z-index: 10;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+
+/* ───────────────────────────── header ───────────────────────────── */
+
+header {
+  background: var(--bg-head);
+  color: #f2f5f7;
+  padding: 3.4rem 0 2.6rem;
+  border-bottom: 3px solid var(--accent);
+}
+
+header h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 5.2vw, 2.6rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.tagline {
+  margin: .5rem 0 0;
+  color: var(--accent-lit);
+  font-size: 1.06rem;
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+
+.epigraph {
+  margin: 1.1rem 0 0;
+  color: #9aa4ad;
+  font-size: .92rem;
+  font-style: italic;
+}
+.epigraph .attrib { font-style: normal; display: block; font-size: .82rem; color: #6f7a84; margin-top: .15rem; }
+
+.contact {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem 1.3rem;
+  font-size: .95rem;
+}
+.contact a { color: #f2f5f7; }
+.contact a:hover { color: var(--accent-lit); }
+.contact .muted { color: #8e979f; }
+
+.actions { margin: 1.7rem 0 0; display: flex; flex-wrap: wrap; gap: .7rem; }
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: .55rem 1.1rem;
+  border-radius: 4px;
+  font-size: .92rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--accent);
+}
+.btn:hover { background: var(--accent-lit); border-color: var(--accent-lit); color: #10201c; }
+.btn.ghost { background: transparent; color: #d7dde2; border-color: #39424b; }
+.btn.ghost:hover { background: #1d242b; color: #fff; border-color: #55606b; }
+
+/* ───────────────────────────── sections ───────────────────────────── */
+
+main { padding: 2.8rem 1.4rem 1rem; }
+
+section { margin: 0 0 2.9rem; }
+
+h2 {
+  margin: 0 0 1.2rem;
+  padding-bottom: .4rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.lede { margin: 0; font-size: 1.07rem; line-height: 1.68; color: var(--ink-soft); }
+.lede strong { color: var(--ink); font-weight: 600; }
+
+/* ───────────────────────────── entries ───────────────────────────── */
+
+.entry { margin: 0 0 1.9rem; }
+.entry:last-child { margin-bottom: 0; }
+
+.entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .2rem 1rem;
+}
+
+.entry h3 {
+  margin: 0;
+  font-size: 1.09rem;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.when {
+  color: var(--ink-faint);
+  font-size: .86rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.where { margin: .12rem 0 .5rem; color: var(--accent); font-size: .96rem; font-weight: 500; }
+.super { margin: -.3rem 0 .55rem; color: var(--ink-faint); font-size: .86rem; }
+
+.thesis {
+  margin: .4rem 0 0;
+  padding-left: .9rem;
+  border-left: 2px solid var(--rule);
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+.thesis .label {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: .1rem;
+}
+
+.entry p { margin: .5rem 0; color: var(--ink-soft); }
+
+.entry ul { margin: .55rem 0 0; padding-left: 1.15rem; }
+.entry li { margin: 0 0 .42rem; color: var(--ink-soft); }
+.entry li::marker { color: var(--accent); }
+
+/* ───────────────────────────── posters ───────────────────────────── */
+
+.posters { list-style: none; margin: 0; padding: 0; counter-reset: p; }
+.posters li {
+  margin: 0 0 1.15rem;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--rule);
+}
+.posters li:last-child { margin-bottom: 0; }
+.posters p { margin: .1rem 0 0; font-size: .95rem; color: var(--ink-soft); }
+.posters strong { color: var(--ink); }
+.posters .venue { color: var(--ink-faint); }
+.posters .when { display: block; font-size: .8rem; font-weight: 600; letter-spacing: .04em; }
+
+/* ───────────────────────────── skills ───────────────────────────── */
+
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.5rem; }
+.skill-group h3 {
+  margin: 0 0 .35rem;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.skill-group p { margin: 0; font-size: .91rem; line-height: 1.6; color: var(--ink-soft); }
+
+/* ───────────────────────── honors / service ───────────────────────── */
+
+.two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 2rem; }
+
+ul.plain { list-style: none; margin: 0; padding: 0; }
+ul.plain li { margin: 0 0 .6rem; font-size: .93rem; color: var(--ink-soft); }
+ul.plain .when {
+  display: inline-block;
+  min-width: 5.6rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ───────────────────────────── footer ───────────────────────────── */
+
+footer {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  padding: 1.8rem 0 2.6rem;
+  font-size: .9rem;
+  color: var(--ink-soft);
+}
+footer p { margin: 0 0 .4rem; }
+footer .fine { color: var(--ink-faint); font-size: .84rem; }
+
+/* ───────────────────────────── small screens ───────────────────────────── */
+
+@media (max-width: 34rem) {
+  header { padding: 2.4rem 0 2rem; }
+  .entry-head { flex-direction: column; }
+  .when { font-size: .82rem; }
+  ul.plain .when { display: block; min-width: 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PRINT. "Print / save as PDF" is a real button on this page, so this block is
+   a feature and not an afterthought: a recruiter who hits Ctrl-P must get a
+   clean CV, not a screenshot of a website. Dark header inverts to ink-on-paper,
+   interactive controls disappear, and nothing is allowed to break across a page.
+   ───────────────────────────────────────────────────────────────────────── */
+
+@media print {
+  @page { margin: 14mm 15mm; }
+
+  :root {
+    --ink: #000; --ink-soft: #1a1a1a; --ink-faint: #555;
+    --rule: #bbb; --bg: #fff; --bg-head: #fff; --accent: #1f6f5c;
+  }
+
+  body { font-size: 10.2pt; line-height: 1.42; }
+  .wrap { max-width: none; padding: 0; }
+  main { padding: 0; }
+
+  /* The header becomes a letterhead. */
+  header {
+    background: #fff !important;
+    color: #000 !important;
+    border-bottom: 2pt solid #1f6f5c;
+    padding: 0 0 .5rem;
+  }
+  header h1 { font-size: 19pt; }
+  .tagline { color: #1f6f5c; font-size: 10.5pt; }
+  .contact { font-size: 9.4pt; gap: .2rem .9rem; margin-top: .5rem; }
+  .contact a, .contact .muted { color: #000 !important; }
+
+  /* Controls and decoration are meaningless on paper. */
+  .actions, .skip, .epigraph, footer .src { display: none !important; }
+
+  a { text-decoration: none; color: #000 !important; }
+
+  section { margin-bottom: 1.1rem; }
+  h2 { font-size: 8.4pt; margin-bottom: .55rem; letter-spacing: .11em; }
+
+  /* An entry split across two sheets is the main way a printed CV looks
+     careless, so every block is kept whole. */
+  .entry, .posters li, .skill-group, ul.plain li, article { break-inside: avoid; page-break-inside: avoid; }
+  h2, h3 { break-after: avoid; page-break-after: avoid; }
+
+  .entry { margin-bottom: .8rem; }
+  .entry h3 { font-size: 10.8pt; }
+  .entry li { margin-bottom: .16rem; }
+  .entry ul { margin-top: .3rem; }
+  .where { margin: 0 0 .25rem; }
+
+  .skills, .two-col { gap: .9rem; }
+  footer { margin-top: .6rem; padding: .6rem 0 0; font-size: 8.6pt; }
+}
