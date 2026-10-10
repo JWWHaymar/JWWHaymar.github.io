@@ -21,6 +21,10 @@ a:hover{border-bottom-color:currentColor}
 header{padding:72px 0 40px;border-bottom:1px solid var(--line)}
 h1{font-size:2.45rem;line-height:1.15;margin:0 0 .3em;letter-spacing:-.02em}
 .tagline{font-size:1.12rem;color:var(--mute);margin:0 0 1.5em;max-width:60ch}
+/* The city line. Kept separate from .tagline because it is a FACT about where
+   he is rather than a description of his work, and it has to stay legible when
+   the tagline runs long. */
+.where{font-size:.92rem;color:var(--faint);margin:-1em 0 1.5em;letter-spacing:.01em}
 .links{display:flex;flex-wrap:wrap;gap:10px}
 .links a{
   display:inline-block;padding:7px 14px;border:1px solid var(--line);

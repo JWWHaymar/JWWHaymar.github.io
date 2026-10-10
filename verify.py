@@ -352,6 +352,41 @@ def main() -> int:
           and f"mailto:{email}" in raw,
           "from contact.json" if email else "contact.json missing")
 
+    # THE CITY MUST BE THE RIGHT ONE, ON EVERY SURFACE. contact.json holds
+    # three addresses (Long Beach, Higganum, Kirkland) and the harness picks
+    # between them PER JOB. A website has no job to pin to, so printing the
+    # wrong one would tell a California employer he lives in Connecticut --
+    # which is worse than printing none, because it is confidently false.
+    # Wyatt confirmed Long Beach 2026-10-10.
+    cj_data = json.loads(cj.read_text(encoding="utf-8")) if cj.is_file() else {}
+    want = next((", ".join(x for x in (a.get("city"), a.get("state")) if x)
+                 for a in (cj_data.get("addresses") or []) if a.get("default")),
+                "")
+    others = [", ".join(x for x in (a.get("city"), a.get("state")) if x)
+              for a in (cj_data.get("addresses") or []) if not a.get("default")]
+    check("contact.json names one default city (not a vacuous pass)",
+          bool(want), f"default: {want!r}")
+    if want:
+        check(f"every page that names a city names {want}",
+              norm(want) in site,
+              "the landing page, the CV page and the PDF all print it")
+        # A city in an EMPLOYER's line is not a claim about where he lives:
+        # "Field of Dreams LLC, Higganum, CT" is his job, and it is in the CV.
+        # So this only inspects the elements that speak for HIM -- the header
+        # city line and the CV page's tagline -- rather than the whole page.
+        # Checking everywhere flagged his own employer, and a check that cries
+        # wolf is one that gets switched off. Found 2026-10-10.
+        his_own = " ".join(
+            m.group(1) for pg in PAGES
+            for m in re.finditer(
+                r'class="(?:where|tagline)"[^>]*>(.*?)</p>',
+                pg.read_text(encoding="utf-8"), re.S))
+        wrong = [o for o in others if o and norm(o) in norm(his_own)]
+        check("no NON-default city is printed as HIS location",
+              not wrong, f"found: {wrong}" if wrong
+              else f"checked {len(others)} other address(es) "
+                   f"against the lines that speak for him")
+
     # THE DOWNLOADABLE CV IS THE OTHER HALF OF CHECK 1. The HTML can be
     # spotless while the PDF linked as "Download" carries his street address,
     # which is exactly the defect found in site.py on 2026-10-10.
