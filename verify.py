@@ -341,7 +341,16 @@ def main() -> int:
           all("viewport" in p.read_text(encoding="utf-8") for p in PAGES))
     check("there is a print stylesheet",
           "@media print" in (HERE / "style.css").read_text(encoding="utf-8"))
-    check("the email is reachable as a link", "mailto:jwyhaymar@proton.me" in raw)
+    # His email comes from contact.json, not from this file. check_pii.py
+    # refused the commit when it was hardcoded here, correctly: a contact
+    # detail retyped into a tracked file is the defect this vault already has
+    # on record, and a guard that republishes the fact it guards is absurd.
+    import json
+    cj = Path("/mnt/c/Users/jwyha/OneDrive/Desktop/Awy/Awy/JobSearch/contact.json")
+    email = json.loads(cj.read_text(encoding="utf-8"))["email"] if cj.is_file() else ""
+    check("his email is reachable as a link", bool(email)
+          and f"mailto:{email}" in raw,
+          "from contact.json" if email else "contact.json missing")
 
     # THE DOWNLOADABLE CV IS THE OTHER HALF OF CHECK 1. The HTML can be
     # spotless while the PDF linked as "Download" carries his street address,
