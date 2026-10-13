@@ -1,24 +1,57 @@
 :root{
-  --ink:#16181d; --mute:#5c6370; --faint:#8a909b; --line:#e3e6ea;
-  --bg:#ffffff; --panel:#f7f8fa; --accent:#1b4f72; --accent-soft:#eef4f9;
+  /* THE PALETTE. 2026-10-12: "I want one that has an elegant backdrop,
+     simple but efficient." The old one was pure #ffffff on #1b4f72 -- clean
+     but clinical, which is what read as droll.
+     Warm paper rather than white, ink rather than black, and a deep teal
+     accent that keeps its contrast against both. Nothing decorative: the
+     elegance has to come from the paper and the type, because this page is
+     read by people who are skimming for facts. */
+  --ink:#1c1f26; --mute:#555d6b; --faint:#8a8f9c; --line:#e4e0d8;
+  --bg:#faf8f4; --panel:#f2efe8; --accent:#1f5f5b; --accent-soft:#e8f0ee;
+  --glow:rgba(31,95,91,.07);
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --ink:#e6e8ec; --mute:#a3abb8; --faint:#7b8390; --line:#2a2f37;
-    --bg:#13151a; --panel:#1a1d23; --accent:#7fb3d5; --accent-soft:#1b2630;
+    /* Not an inversion. Warm near-black, a hint of blue in the paper, and
+       a lifted accent so the links stay legible at low brightness. */
+    --ink:#e8e6e1; --mute:#a8aeb8; --faint:#7d838f; --line:#2b2f36;
+    --bg:#15171b; --panel:#1c1f25; --accent:#6fb3ab; --accent-soft:#17262a;
+    --glow:rgba(111,179,171,.08);
   }
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+  margin:0; color:var(--ink);
+  /* The backdrop: two very soft radial washes over the paper colour. Fixed,
+     so it does not swim as the page scrolls, and low-contrast enough that it
+     never competes with the text. */
+  background:
+    radial-gradient(1100px 620px at 12% -8%, var(--glow), transparent 60%),
+    radial-gradient(900px 540px at 92% 2%, var(--glow), transparent 62%),
+    var(--bg);
+  background-attachment:fixed;
+  font:16px/1.68 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
        "Helvetica Neue",Arial,sans-serif;
 }
 .wrap{max-width:860px;margin:0 auto;padding:0 24px}
 a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
 a:hover{border-bottom-color:currentColor}
-header{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+header{padding:68px 0 40px;border-bottom:1px solid var(--line)}
+/* THE HERO. Portrait left, text right, and it stacks to centred on a phone
+   where a 240px circle beside text would leave neither any room. */
+.hero{display:flex;gap:34px;align-items:center}
+.hero-text{min-width:0}
+.portrait{
+  flex:0 0 auto;width:150px;height:150px;border-radius:50%;object-fit:cover;
+  border:1px solid var(--line);
+  box-shadow:0 1px 2px rgba(0,0,0,.05), 0 10px 26px rgba(0,0,0,.08);
+}
+@media (max-width:620px){
+  .hero{flex-direction:column;text-align:center;gap:20px}
+  .hero .links{justify-content:center}
+  .portrait{width:118px;height:118px}
+}
 h1{font-size:2.45rem;line-height:1.15;margin:0 0 .3em;letter-spacing:-.02em}
 .tagline{font-size:1.12rem;color:var(--mute);margin:0 0 1.5em;max-width:60ch}
 /* The city line. Kept separate from .tagline because it is a FACT about where
@@ -95,7 +128,8 @@ footer{padding:36px 0 64px;color:var(--faint);font-size:.86rem}
          border-bottom:2pt solid var(--accent)}
   header h1{font-size:19pt}
   a{text-decoration:none;color:#000!important}
-  .links,nav,.tag,.pill{display:none!important}
+  .links,nav,.tag,.pill,.portrait{display:none!important}
+  .hero{display:block}
   section{padding:8pt 0;border:0}
   h2{font-size:8.6pt;letter-spacing:.11em;margin-bottom:6pt}
   .entry,.poster,.news-item,article,li{break-inside:avoid;page-break-inside:avoid}
