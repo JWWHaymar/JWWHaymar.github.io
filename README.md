@@ -29,6 +29,6 @@ fundamentally shaped my scientific trajectory. Working under the supervision of 
 Sebastien Lemire, I developed a deep appreciation for phage biology and a strong drive to
 advance the field. I recently earned my Master's in Microbiology from the University of 
 Illinois Urbana-Champaign and am currently looking to join a PhD lab for the Fall 2028 
-term.
+term. I am a big fan of Nick Cage and his movies.
 
 Email: jwyhaymar@proton.me
