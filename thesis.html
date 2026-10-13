@@ -161,6 +161,11 @@ dialog.figbox::backdrop{background:rgba(10,12,16,.82)}
    page does not stutter. Progressive enhancement -- every link already works
    with JavaScript off, because they are plain fragment anchors. */
 (function(){
+  /* Guarded: a browser without IntersectionObserver would throw here, and an
+     uncaught throw in this script stops the NEXT one from running too -- which
+     would silently disable the figure popups. Scroll-spy is decoration; the
+     popup is the feature. */
+  if (!('IntersectionObserver' in window)) return;
   var links = {}, seen = [];
   document.querySelectorAll('.t-toc a').forEach(function(a){
     (links[a.getAttribute('href').slice(1)] ||= []).push(a);
@@ -225,7 +230,11 @@ dialog.figbox::backdrop{background:rgba(10,12,16,.82)}
     var fig = document.getElementById(anchor);
     if (!fig) return;
     var cap = fig.querySelector('figcaption');
-    elTitle.textContent = (cap ? cap.textContent.split('.')[0] : 'Figure');
+    /* The label, not the first sentence. Splitting on "." gave "Figure 2"
+       because the number itself contains one; the label is everything up to
+       the period that FOLLOWS the number. */
+    var m = cap && cap.textContent.match(/^\s*((?:Figure|Table)\s+S?\d+\.\d+[a-z]?)\./);
+    elTitle.textContent = m ? m[1] : 'Figure';
     elFig.innerHTML = '';
     fig.querySelectorAll('.fig-img, .fig-panel').forEach(function(img){
       var c = img.cloneNode(true);
