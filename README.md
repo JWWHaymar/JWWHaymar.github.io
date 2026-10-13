@@ -95,5 +95,4 @@ half.
 
 ## Elsewhere
 
-- [ScapeDaddy](https://github.com/SalParadiise) — a side project of mine
-- Email: jwyhaymar@proton.me
+Email: jwyhaymar@proton.me
