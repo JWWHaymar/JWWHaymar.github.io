@@ -1,7 +1,9 @@
 # salparadiise.github.io
 
 My corner of the internet. I am Jeffrey Marciniak-Haynosch, a microbiologist
-who works on bacteriophage and on how bacteria fight them off.
+devoted to harnessing the microbial world at the interface of bacteriophages
+and their hosts.
+
 
 **The site:** <https://salparadiise.github.io/SalParadiise/>
 
