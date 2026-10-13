@@ -13,23 +13,23 @@ and their hosts.
 
 | Page | What it is |
 |---|---|
-| `index.html` | The landing page — what I work on, where I've been, what's new |
+| `index.html` | What I work on, where I've been, what's new |
 | `cv.html` | My CV |
 | `thesis.html` | My master's thesis, with the PDF |
 | `JWWMH_CV.pdf` | The CV as a download |
 
-## A note on how this is put together
+## Brief About Me
 
-I don't write these pages by hand, and there's a story behind that.
-
-The first version of this site *was* hand-written. Within the hour, my
-graduation month moved from August to September 2026. I updated my CV, and the
-website quietly went on saying August — because nothing connected the two. A
-personal site that disagrees with your own CV is worse than no site at all.
-
-So now the pages are built from the CV itself. I change the CV, run the
-builder, and the site follows. One source, one truth, no stale copies of my own
-history floating around.
+I am Jeffrey Wyatt-Wolfgang Marciniak-Haynosch, though most people just call me Wyatt. 
+I earned my Bachelor of Science from Eastern Connecticut State University in 2014.
+Rather than taking the traditional academic route straight into graduate school, I 
+spent several years working in industry. My time as a lab technician at Unilever and
+later at C3-jian—which evolved into the phage therapy powerhouse Armata Pharmaceuticals—
+fundamentally shaped my scientific trajectory. Working under the supervision of Dr. 
+Sebastien Lemire, I developed a deep appreciation for phage biology and a strong drive to
+advance the field. I recently earned my Master's in Microbiology from the University of 
+Illinois Urbana-Champaign and am currently looking to join a PhD lab for the Fall 2028 
+term.
 
 ```bash
 python3 JobSearch/site.py --build     # builds into ~/awy-site
