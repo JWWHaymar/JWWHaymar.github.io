@@ -120,6 +120,26 @@ def main() -> int:
                              for p in PAGES)
     site = norm(site_visible)
 
+    # THE CV CLAIM CHECKS (2, 2b, 2c) APPLY TO THE CV PAGES ONLY.
+    #
+    # They are inverted checks: they read every credential and every date
+    # range OFF the page and demand the CV account for it. That is exactly
+    # right for a page that speaks about his career, and wrong for the thesis,
+    # which reproduces a 130-page scientific document. Its reference list is
+    # full of journal page ranges ("Cell 184, 5728-5739") that look exactly
+    # like employment dates, and its prose discusses PhD work and M.D.-adjacent
+    # literature. Checked against the CV, all 53 of those became "invented
+    # history".
+    #
+    # A check that cries wolf is one that gets switched off -- the lesson this
+    # file already records for the employer-city check on 2026-10-10. So the
+    # scope is narrowed to the pages that actually make claims about HIM,
+    # rather than the checks being weakened. PII checks below still run across
+    # every page, because those must never be narrowed.
+    CV_PAGES = [p for p in PAGES if p.name in ("index.html", "cv.html")]
+    cv_visible = "\n".join(html_text(p.read_text(encoding="utf-8"))
+                           for p in CV_PAGES)
+
     print(f"\nVerifying {len(PAGES)} page(s) [{', '.join(p.name for p in PAGES)}]"
           f" against {CV_PDF.name} ({len(pdf_raw)} chars extracted)\n")
 
@@ -231,11 +251,11 @@ def main() -> int:
         r"interested in|prospective|future|aspiring|towards?|"
         r"enquir\w*|inquir\w*|join|joining|pursu\w*)\b",
         re.IGNORECASE | re.DOTALL)
-    found = sorted({m.group(0) for m in re.finditer(degree_pat, site_visible,
+    found = sorted({m.group(0) for m in re.finditer(degree_pat, cv_visible,
                                                     re.IGNORECASE)
                     if not not_a_claim.search(
-                        " ".join(site_visible[max(0, m.start() - 90):
-                                              m.start()].split()))})
+                        " ".join(cv_visible[max(0, m.start() - 90):
+                                            m.start()].split()))})
     check("the page does claim some credentials (not a vacuous pass)",
           bool(found), f"found: {found}")
     unbacked = [d for d in found
@@ -252,7 +272,7 @@ def main() -> int:
         in_cv = re.search(rf"{re.escape(degree)}\s+{field}", pdf_raw, re.I)
         check(f"the page states the CV's own degree: {degree} {field}",
               bool(in_cv) and re.search(
-                  rf"{re.escape(degree)}\s+{field}", site_visible, re.I) is not None,
+                  rf"{re.escape(degree)}\s+{field}", cv_visible, re.I) is not None,
               "in CV" if in_cv else "NOT IN CV -- this check is broken")
 
     # ── 2c. NO DRIFTED DATE ───────────────────────────────────────────────
@@ -277,7 +297,7 @@ def main() -> int:
     # would otherwise read as "nothing is wrong", which is why the vacuous-pass
     # guard below exists and caught exactly that during development.
     ranges = sorted({m.group(0) for m in re.finditer(
-        rf"{endpoint}\s*[-]\s*{endpoint}", norm(site_visible), re.IGNORECASE)})
+        rf"{endpoint}\s*[-]\s*{endpoint}", norm(cv_visible), re.IGNORECASE)})
     check("the page does state date ranges (not a vacuous pass)",
           len(ranges) >= 8, f"found {len(ranges)}: {ranges}")
     drifted = [r for r in ranges if r not in pdf]
