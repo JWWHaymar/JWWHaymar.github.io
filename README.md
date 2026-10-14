@@ -1,11 +1,11 @@
-# jwwhaymar.github.io
+# JWWHaymar.github.io
 
 My corner of the internet. I am Jeffrey Marciniak-Haynosch, a microbiologist
 devoted to harnessing the microbial world at the interface of bacteriophages
 and their hosts.
 
 
-**The site:** <https://jwwhaymar.github.io/>
+**The site:** <https://JWWHaymar.github.io/>
 
 > *"Nothing behind me, everything ahead of me."* — Jack Kerouac
 
