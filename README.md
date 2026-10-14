@@ -5,7 +5,7 @@ devoted to harnessing the microbial world at the interface of bacteriophages
 and their hosts.
 
 
-**The site:** <https://salparadiise.github.io/SalParadiise/>
+**The site:** <https://jwwhaymar.github.io/>
 
 > *"Nothing behind me, everything ahead of me."* — Jack Kerouac
 
