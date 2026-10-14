@@ -1,4 +1,4 @@
-# salparadiise.github.io
+# jwwhaymar.github.io
 
 My corner of the internet. I am Jeffrey Marciniak-Haynosch, a microbiologist
 devoted to harnessing the microbial world at the interface of bacteriophages
